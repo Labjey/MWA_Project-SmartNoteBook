@@ -1,10 +1,14 @@
-
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var lessMiddleware = require('less-middleware');
 var logger = require('morgan');
+var http= require('http');
+<<<<<<< HEAD
+var conurl=require('./config')
+=======
+>>>>>>> 6696b853669841f440be091071886be51c7d43f4
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -17,7 +21,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
-//middleware
+//middlewares
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -31,9 +35,16 @@ app.use(function(req, res, next) {
   next();
 });
 
-//Routing
+
+const mongoose = require('mongoose');
+mongoose.connect(conurl.mongourl)
+.then(()=>
+  {console.log("db connected")});
+
+
+//routing 
 app.use('/', indexRouter);
-app.use('/api/users', usersRouter);
+app.use('/users', usersRouter);
 app.use('/api/applications', applicationsRouter);
 
 // catch 404 and forward to error handler
@@ -48,10 +59,19 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500);  
+  res.status(err.status || 500);
   res.render('error');
 });
 
-app.listen(3050,()=>{console.log("server islistening")})
-
+<<<<<<< HEAD
+app.listen(3000,()=>{console.log("we are doing ...")});
+// http.listen(process.env.PORT || 3000, function(){
+//   console.log('listening on', http.address().port);
+// });
+=======
+//app.listen(3000,()=>{console.log("we are doing ...")});
+http.listen(process.env.PORT || 3000, function(){
+  console.log('listening on', http.address().port);
+});
+>>>>>>> 6696b853669841f440be091071886be51c7d43f4
 module.exports = app;

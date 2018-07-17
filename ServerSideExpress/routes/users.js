@@ -1,25 +1,21 @@
-
 var express = require('express');
 var router = express.Router();
 var User = require('../models/users');
 var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 
-/* GET users listing. */
-router.post('/token', function(req, res, next) {
-    const user = req.body;
-    let userDb;
-    User.findOne()
-        .where('username', user.username)
-        .where('password', user.password)
-        .then(data => {
-          const tk = (data.length != 0) ? jwt.sign({data},'my_secret_key') : 'NOT_VALID'; 
-          res.status(200).json({userId : data._id, token : tk});
-        });
-  });
 
-  /* GET users listing. */
-router.get('/:id',ensureToken, authorization, function(req, res, next) {
+
+router.route('/').get((req, res) => {
+      User.find({}, (err, user) => {
+        console.log(user);
+            res.json(user)
+        })  
+    })
+ /* GET users listing. */
+ router.get('/:id',ensureToken, authorization, function(req, res, next) {
+
+  console.log("try again")
   User.findById(req.param('id'))
                 .then(data => res.status(200).json(data))
                 .catch(err => res.status(500));
@@ -48,30 +44,5 @@ router.get('/:id',ensureToken, authorization, function(req, res, next) {
       res.sendStatus(403);
     }
   }
-
-/* POST new application */
-router.post('/', function(req, res, next) {
-  const user = new User(req.body);
-  user.save();
-  res.status(200).json(user);
-});
-
-/* Update new application */
-router.put('/', function(req, res, next) {
-    const user = new User(req.body);
-    console.log(req.body.companyName);
-    User.findById(req.body._id, function(err, doc){
-        if(err){
-            res.status(500);
-        }
-
-        doc.username = req.body.username;
-        doc.password = req.body.password;
-        doc.createDate = req.body.createDate;
-        
-        doc.save();
-    });
-    res.status(200).json(user);
-  });
 
 module.exports = router;
