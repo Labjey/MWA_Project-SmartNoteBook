@@ -5,8 +5,6 @@ var User = require('../models/users');
 var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 
-//database connection using mlab which is done by mongoose
-mongoose.connect('mongodb://user1:user11@ds235461.mlab.com:35461/smartnotebook');
 /* GET users listing. */
 router.post('/token', function(req, res, next) {
     const user = req.body;

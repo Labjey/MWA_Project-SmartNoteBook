@@ -4,8 +4,6 @@ var Application = require('../models/application');
 var mongoose = require('mongoose');
 var url = require('url');
 
-mongoose.connect('mongodb://user1:user11@ds235461.mlab.com:35461/smartnotebook');
-
 
 /* GET users listing. */
 router.get('/user/', function(req, res, next) {
