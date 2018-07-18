@@ -5,10 +5,8 @@ var cookieParser = require('cookie-parser');
 var lessMiddleware = require('less-middleware');
 var logger = require('morgan');
 var http= require('http');
-<<<<<<< HEAD
+
 var conurl=require('./config')
-=======
->>>>>>> 6696b853669841f440be091071886be51c7d43f4
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -63,15 +61,14 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-<<<<<<< HEAD
+
 app.listen(3000,()=>{console.log("we are doing ...")});
 // http.listen(process.env.PORT || 3000, function(){
 //   console.log('listening on', http.address().port);
 // });
-=======
 //app.listen(3000,()=>{console.log("we are doing ...")});
 http.listen(process.env.PORT || 3000, function(){
   console.log('listening on', http.address().port);
 });
->>>>>>> 6696b853669841f440be091071886be51c7d43f4
+
 module.exports = app;
